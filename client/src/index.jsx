@@ -1,28 +1,31 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import $ from 'jquery';
+import axios from 'axios'
 import Search from './components/Search.jsx';
 import RepoList from './components/RepoList.jsx';
+import promise from 'promise'
 
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { 
+    this.state = {
       repos: []
     }
-
+    this.search = this.search.bind(this)
   }
 
-  search (term) {
-    console.log(`${term} was searched`);
-    // TODO
+  search(username) {
+    axios.post(`/repos`, { username })
+      .then(() => console.log("Sent Post Request to Server"))
+      .catch((err) => console.log(err))
   }
 
-  render () {
+  render() {
     return (<div>
       <h1>Github Fetcher</h1>
-      <RepoList repos={this.state.repos}/>
-      <Search onSearch={this.search.bind(this)}/>
+      <RepoList repos={this.state.repos} />
+      <Search onSearch={this.search} />
     </div>)
   }
 }
