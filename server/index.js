@@ -2,6 +2,7 @@ const express = require('express');
 let app = express();
 const bodyParser = require('body-parser')
 const getHelpers = require('../helpers/github.js')
+const db = require('../database/index.js')
 
 app.use(express.static(__dirname + '/../client/dist'));
 app.use(bodyParser.json())
@@ -15,7 +16,9 @@ app.post('/repos', function (req, res) {
 
   // GET request to the API fetching data back, now we need a function (the callback) that handles
   // creating an entry in the mongoDB
-  getHelpers.getReposByUsername(req.body.username /*, CALLBACK GOES HERE*/)
+  getHelpers.getReposByUsername(req.body.username, (res) => {
+    db.save(res)
+  })
   res.end();
 });
 

@@ -3,7 +3,7 @@ const config = require('../config.js');
 
 // Complete the getReposByUsername function in helpers / github.js.In this function, you'll use the request npm module to fetch a user's repositories from the GitHub API
 
-let getReposByUsername = (username) => {
+let getReposByUsername = (username, cb) => {
   // TODO - Use the request module to request repos for a specific
   // user from the github API
 
@@ -22,8 +22,8 @@ let getReposByUsername = (username) => {
     }
     var parsed = JSON.parse(body)
     // parsed.length = # of repos
-
-    callback(parsed)
+    // parsed is the list of repos being returned from the API
+    cb(parsed)
   })
 }
 
