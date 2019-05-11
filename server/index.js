@@ -11,6 +11,12 @@ app.post('/repos', function (req, res) {
   // This route should take the github username provided
   // and get the repo information from the github API, then
   // save the repo information in the database
+  // console.log(req.body) // {username: ' PikaJoyce'}
+
+  // GET request to the API fetching data back, now we need a function (the callback) that handles
+  // creating an entry in the mongoDB
+  getHelpers.getReposByUsername(req.body.username /*, CALLBACK GOES HERE*/)
+  res.end();
 });
 
 app.get('/repos', function (req, res) {
