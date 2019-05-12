@@ -5,6 +5,7 @@ import axios from 'axios'
 import Search from './components/Search.jsx';
 import RepoList from './components/RepoList.jsx';
 import promise from 'promise'
+import Repo from './components/Repo.jsx';
 
 class App extends React.Component {
   constructor(props) {
@@ -18,6 +19,7 @@ class App extends React.Component {
 
   componentWillMount() {
     this.onPageLoad();
+
   }
 
   search(username) {
@@ -29,7 +31,9 @@ class App extends React.Component {
   onPageLoad() {
     axios.get('/repos')
       .then((response) => {
-        console.log("get request response", response.data)
+        this.setState({
+          repos: response.data
+        })
       })
       .catch((err) => (console.log("An error: ", err)))
   }
@@ -37,8 +41,8 @@ class App extends React.Component {
   render() {
     return (<div>
       <h1>Github Fetcher</h1>
-      <RepoList repos={this.state.repos} />
       <Search onSearch={this.search} />
+      <RepoList repos={this.state.repos} />
     </div>)
   }
 }

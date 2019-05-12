@@ -14,7 +14,7 @@ let repoSchema = mongoose.Schema({
   // TODO: your schema here!
   id: Number,
   userName: String,
-  repoURL: String,
+  html_url: String,
   repoName: String
 });
 
@@ -47,7 +47,7 @@ var getHandler = (cb) => {
     } else {
       cb(null, docs)
     }
-  })
+  }).limit(25)
 }
 
 module.exports.save = save;

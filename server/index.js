@@ -20,13 +20,13 @@ app.post('/repos', function (req, res) {
     var repo = {
       id: 0,
       userName: "",
-      repoURL: "",
-      repoName: ""
+      repoName: "",
+      html_url: ""
     }
     for (var i = 0; i < res.length; i++) {
       repo.id = res[i].id
       repo.userName = res[i].owner.login
-      repo.repoURL = res[i].owner.repos_url
+      repo.html_url = res[i].html_url
       repo.repoName = res[i].name
       db.save(repo)
     }
