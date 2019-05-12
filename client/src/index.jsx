@@ -13,12 +13,25 @@ class App extends React.Component {
       repos: []
     }
     this.search = this.search.bind(this)
+    this.onPageLoad = this.onPageLoad.bind(this)
+  }
+
+  componentWillMount() {
+    this.onPageLoad();
   }
 
   search(username) {
     axios.post(`/repos`, { username })
       .then(() => console.log("Sent Post Request to Server"))
       .catch((err) => console.log(err))
+  }
+
+  onPageLoad() {
+    axios.get('/repos')
+      .then((response) => {
+        console.log("get request response", response.data)
+      })
+      .catch((err) => (console.log("An error: ", err)))
   }
 
   render() {

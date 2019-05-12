@@ -17,15 +17,35 @@ app.post('/repos', function (req, res) {
   // GET request to the API fetching data back, now we need a function (the callback) that handles
   // creating an entry in the mongoDB
   getHelpers.getReposByUsername(req.body.username, (res) => {
-    db.save(res)
+    var repo = {
+      id: 0,
+      userName: "",
+      repoURL: "",
+      repoName: ""
+    }
+    for (var i = 0; i < res.length; i++) {
+      repo.id = res[i].id
+      repo.userName = res[i].owner.login
+      repo.repoURL = res[i].owner.repos_url
+      repo.repoName = res[i].name
+      db.save(repo)
+    }
   })
   res.end();
-});
+})
 
 app.get('/repos', function (req, res) {
   // TODO - your code here!
   // This route should send back the top 25 repos
-  //GET /users/:username/repos
+  // console.log(req.body) // {username: ' PikaJoyce'}
+  db.getHandler((err, data) => {
+    if (err) {
+      console.log("Error on server: ", err)
+    } else {
+      res.send(data)
+      res.end();
+    }
+  })
 });
 
 let port = 1128;
@@ -33,4 +53,3 @@ let port = 1128;
 app.listen(port, function () {
   console.log(`listening on port ${port}`);
 });
-
