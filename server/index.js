@@ -21,13 +21,15 @@ app.post('/repos', function (req, res) {
       id: 0,
       userName: "",
       repoName: "",
-      html_url: ""
+      html_url: "",
+      avatar_url: ""
     }
     for (var i = 0; i < res.length; i++) {
       repo.id = res[i].id
       repo.userName = res[i].owner.login
       repo.html_url = res[i].html_url
       repo.repoName = res[i].name
+      repo.avatar_url = res[i].owner.avatar_url
       db.save(repo)
     }
   })

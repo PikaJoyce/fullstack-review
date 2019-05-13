@@ -17,7 +17,7 @@ class App extends React.Component {
     this.onPageLoad = this.onPageLoad.bind(this)
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.onPageLoad();
 
   }

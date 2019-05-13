@@ -15,7 +15,8 @@ let repoSchema = mongoose.Schema({
   id: Number,
   userName: String,
   html_url: String,
-  repoName: String
+  repoName: String,
+  avatar_url: String
 });
 
 // compile schema to model
@@ -30,6 +31,7 @@ let save = (repo) => {
   // TODO: Your code here
   // This function should save a repo or repos to
   // the MongoDB
+  console.log(repo)
   var repo = new Repo(repo)
   repo.save(repo, function (err) {
     if (err) {
